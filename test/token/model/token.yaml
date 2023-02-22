@@ -1,0 +1,6 @@
+schema:
+  id: "string"
+  token: "string::required"
+  created_at: "date::iso::required"
+  updated_at: "date::iso::required"
+  expires_at: "date::iso::required"
