@@ -1,0 +1,15 @@
+name: GET   - Test get activity
+cases:
+  - name: Get activity -- success
+    request:
+      path: /activity
+      method: GET
+    assertions:
+      - name: should return with status code 200
+        on: status_code
+        check: exact
+        expected: 200
+      - name: should return body with correct schema
+        on: body
+        check: schema
+        expected: $model.activity

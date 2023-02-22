@@ -1,3 +1,4 @@
+name: ErrorResponse
 schema:
   type: object
   properties:

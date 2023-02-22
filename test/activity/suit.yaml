@@ -1,0 +1,4 @@
+name: Test Activity Suit
+version: 0.0.1
+flow:
+  - get
