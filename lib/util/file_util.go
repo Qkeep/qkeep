@@ -4,6 +4,8 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"path/filepath"
+	"strings"
 )
 
 func ListAllFolder(path string) ([]string, error) {
@@ -47,32 +49,16 @@ func ListAllFiles(path string) ([]string, error) {
 }
 
 func GetFilenameFromPath(filePath string) string {
-	return filePath[len(filePath)-len(GetFilename(filePath)):]
-}
-
-func GetFilename(filePath string) string {
-	var filename string
-	for i := len(filePath) - 1; i >= 0; i-- {
-		if string(filePath[i]) == "/" {
-			break
-		}
-		filename = string(filePath[i]) + filename
+	if filePath == "" {
+		return ""
 	}
-	return filename
+	return filepath.Base(filePath)
 }
 
 func GetFilenameWithoutExt(filename string) string {
-	fileName := GetFilenameFromPath(filename)
-	return fileName[:len(fileName)-len(GetExt(fileName))-1]
-}
-
-func GetExt(filename string) string {
-	lastDotIndex := -1
-	for i := len(filename) - 1; i >= 0; i-- {
-		if string(filename[i]) == "." {
-			lastDotIndex = i
-			break
-		}
+	filename = GetFilenameFromPath(filename)
+	if strings.HasPrefix(filename, ".") {
+		return filename
 	}
-	return filename[lastDotIndex+1:]
+	return strings.TrimSuffix(filename, filepath.Ext(filename))
 }

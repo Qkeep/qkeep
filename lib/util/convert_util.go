@@ -1,25 +1,11 @@
 package util
 
-import (
-	"log"
-	"strconv"
-)
-
 func StringToInterface(s string) interface{} {
 	return s
 }
 
 func InterfaceToString(i interface{}) string {
 	return i.(string)
-}
-
-func StringToInt(s string, defaultValue int) int {
-	value, err := strconv.Atoi(s)
-	if err != nil {
-		log.Printf("Try to convert %s to int failed, use default value %d", s, defaultValue)
-		return defaultValue
-	}
-	return value
 }
 
 func SnakeCaseToUpperCamelCase(s string) string {
@@ -33,6 +19,11 @@ func SnakeCaseToUpperCamelCase(s string) string {
 func UpperFirst(s string) string {
 	if len(s) == 0 {
 		return ""
+	}
+
+	// Check if the first character is already uppercase or number
+	if (s[0] >= 65 && s[0] <= 90) || (s[0] >= 48 && s[0] <= 57) {
+		return s
 	}
 	return string(s[0]-32) + s[1:]
 }
