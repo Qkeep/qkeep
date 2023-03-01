@@ -121,6 +121,14 @@ cases:
               on: body
               check: schema
               expect: $schema.api_get_response
+            - name: Should return a valid token
+              on: body
+              check: type
+              expect:
+                $body.token: regex::^[a-zA-Z0-9]{32}$
+                $body.created_at: datetime::iso8601
+                $body.created_at: datetime::today
+                $body.expires_at: int::range::1-24
         variables:
             token: $body.token
             "$global.token": $body.token
@@ -155,3 +163,60 @@ cases:
 - `$scenario`: scenario variables
 - `$schema`: schema variables
 - `$body`: response body
+
+## How to assert response
+
+### Type of assertion
+
+- `exact`: check if the value is exactly the same value and same type
+- `exist`: check if the value is exist (not null, not undefined)
+- `type`: check if the value is the same type (and type syntax)
+- `schema`: check if the value is match the schema
+
+### Target to assert
+
+- `status_code`: status code of response
+- `body`: body of response
+- `headers`: headers of response
+
+### Type syntax
+
+#### Primary type
+
+- `int`: integer
+- `float`: float
+- `string`: string
+- `bool`: boolean
+- `null`: null
+
+#### Complex type
+
+- `object`: object
+- `object::schema::value`: object with schema
+- `array`: array
+- `array::schema::value`: array with schema
+- `int::range::min-max`: integer with range
+- `int::(gte|gt|lte|lt)::value`: integer with condition
+- `float::range::min::max`: float with range
+- `float::(gte|gt|lte|lt)::value`: float with condition
+- `string::regex::value`: string with regex
+- `string::length::min::max`: string with length
+- `datetime::iso8601`: datetime with iso8601 format
+- `datetime::today`: datetime within today
+- `datetime::(gte|gt|lte|lt)::value`: datetime with condition
+- `datetime::between::start::end`: datetime with range
+
+Example: define a schema
+
+```yaml
+# error_response.yaml
+type: object
+properties:
+    code: int
+    message: string
+    details:
+        type: object
+        properties:
+            code: int::range::400000::599999
+            message: string
+```
