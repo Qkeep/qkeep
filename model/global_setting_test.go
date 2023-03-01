@@ -87,4 +87,12 @@ func TestGlobalSetting(t *testing.T) {
 	assert.Equal(t, "application/xml", g.Headers["Content-Type"])
 	assert.Equal(t, 1, len(g.Flows))
 	assert.Equal(t, "Flow 3", g.Flows[0].Name)
+
+	// Test Merge method with nil.
+	g.Merge(nil)
+	assert.Equal(t, "http://example.org", g.BaseUrl)
+	assert.Equal(t, 1, len(g.Headers))
+	assert.Equal(t, "application/xml", g.Headers["Content-Type"])
+	assert.Equal(t, 1, len(g.Flows))
+	assert.Equal(t, "Flow 3", g.Flows[0].Name)
 }
