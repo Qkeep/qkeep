@@ -32,7 +32,7 @@ func TestSuitPaths_AddScenarioPath(t *testing.T) {
 	// Arrange
 	suit := &SuitPaths{
 		Path:          "path/to/suit",
-		ScenarioPaths: make(map[string]ScenarioPaths),
+		ScenarioPaths: make(map[string]*ScenarioPaths),
 	}
 
 	scenarioPaths := ScenarioPaths{
@@ -43,7 +43,7 @@ func TestSuitPaths_AddScenarioPath(t *testing.T) {
 	suit.AddScenarioPath("path/to/scenario", scenarioPaths)
 
 	// Assert
-	assert.Equal(t, scenarioPaths, suit.GetScenarioPaths()["path/to/scenario"])
+	assert.Equal(t, &scenarioPaths, suit.GetScenarioPaths()["path/to/scenario"])
 }
 
 func TestSuitPaths_GetPath(t *testing.T) {
@@ -72,34 +72,34 @@ func TestTreePaths_AddSuitPath(t *testing.T) {
 	// Arrange
 	tree := &TreePaths{
 		Root:      "path/to/root",
-		SuitPaths: make(map[string]SuitPaths),
+		SuitPaths: make(map[string]*SuitPaths),
 	}
 
 	suitPaths := SuitPaths{
 		Path:          "path/to/suit",
-		ScenarioPaths: make(map[string]ScenarioPaths),
+		ScenarioPaths: make(map[string]*ScenarioPaths),
 	}
 	// Act
 	tree.AddSuitPath("path/to/suit", suitPaths)
 
 	// Assert
-	assert.Equal(t, suitPaths, tree.GetSuitPaths()["path/to/suit"])
+	assert.Equal(t, &suitPaths, tree.GetSuitPaths()["path/to/suit"])
 }
 
 func TestTreePaths_GetSuitPaths(t *testing.T) {
 	// Arrange
 	tree := &TreePaths{
 		Root:      "path/to/root",
-		SuitPaths: make(map[string]SuitPaths),
+		SuitPaths: make(map[string]*SuitPaths),
 	}
 
 	suitPaths := SuitPaths{
 		Path:          "path/to/suit",
-		ScenarioPaths: make(map[string]ScenarioPaths),
+		ScenarioPaths: make(map[string]*ScenarioPaths),
 	}
 	// Act
 	tree.AddSuitPath("path/to/suit", suitPaths)
 
 	// Assert
-	assert.Equal(t, suitPaths, tree.GetSuitPaths()["path/to/suit"])
+	assert.Equal(t, &suitPaths, tree.GetSuitPaths()["path/to/suit"])
 }
