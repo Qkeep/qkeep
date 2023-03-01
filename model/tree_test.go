@@ -56,3 +56,50 @@ func TestSuitPaths_GetPath(t *testing.T) {
 	// Assert
 	assert.Equal(t, "path/to/suit", path)
 }
+
+func TestTreePaths_GetRoot(t *testing.T) {
+	// Arrange
+	tree := &TreePaths{Root: "path/to/root"}
+
+	// Act
+	root := tree.GetRoot()
+
+	// Assert
+	assert.Equal(t, "path/to/root", root)
+}
+
+func TestTreePaths_AddSuitPath(t *testing.T) {
+	// Arrange
+	tree := &TreePaths{
+		Root:      "path/to/root",
+		SuitPaths: make(map[string]SuitPaths),
+	}
+
+	suitPaths := SuitPaths{
+		Path:          "path/to/suit",
+		ScenarioPaths: make(map[string]ScenarioPaths),
+	}
+	// Act
+	tree.AddSuitPath("path/to/suit", suitPaths)
+
+	// Assert
+	assert.Equal(t, suitPaths, tree.GetSuitPaths()["path/to/suit"])
+}
+
+func TestTreePaths_GetSuitPaths(t *testing.T) {
+	// Arrange
+	tree := &TreePaths{
+		Root:      "path/to/root",
+		SuitPaths: make(map[string]SuitPaths),
+	}
+
+	suitPaths := SuitPaths{
+		Path:          "path/to/suit",
+		ScenarioPaths: make(map[string]ScenarioPaths),
+	}
+	// Act
+	tree.AddSuitPath("path/to/suit", suitPaths)
+
+	// Assert
+	assert.Equal(t, suitPaths, tree.GetSuitPaths()["path/to/suit"])
+}
