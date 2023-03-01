@@ -1,8 +1,0 @@
-schema:
-  activity: "string::required"
-  type: "string::required"
-  participants: "int"
-  price: "int"
-  link: "string::url"
-  key: "string"
-  accessibility: "float"
