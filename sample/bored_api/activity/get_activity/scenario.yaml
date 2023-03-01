@@ -1,0 +1,9 @@
+name: "[Activity] -- Get Activity"
+base_url: https://www.boredapi.com/api/activity
+headers:
+  Content-Type: application/json
+  Accept: application/json
+flows:
+  - name: Simple get activity flow
+    steps:
+      - get_activity

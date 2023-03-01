@@ -1,0 +1,15 @@
+name: "[Activity] -- Get /activity"
+cases:
+  - name: Success
+    request:
+      path: /activity
+      method: GET
+    assertions:
+      - name: Should return 200
+        on: status_code
+        check: exact
+        expect: 200
+      - name: Should return activity model
+        on: body
+        check: schema
+        expect: $schema.activity

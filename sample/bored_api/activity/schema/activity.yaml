@@ -1,0 +1,8 @@
+properties:
+  activity: string
+  type: string
+  participants: int
+  price: float
+  link: string
+  key: string
+  accessibility: float
